@@ -12,8 +12,8 @@ More information on paRticulates is available on the [project homepage](https://
 To install the package directly from GitHub, you can use `install_github()` from the [devtools](https://github.com/hadley/devtools) package:
 
 ```r
-library(devtools)
-install_github("unDocUMeantIt/paRticulates")
+devtools::install_github("unDocUMeantIt/paRticulates") # stable release
+devtools::install_github("unDocUMeantIt/paRticulates", ref="develop") # development release
 ```
 
 ## License
