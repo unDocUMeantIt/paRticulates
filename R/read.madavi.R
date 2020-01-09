@@ -41,11 +41,16 @@ read.madavi <- function(
     file_data_list <- lapply(
       CSV_files,
       function(this_file){
-        return(read.madavi(
-          path=this_file,
-          dropEmptyCols=FALSE,
-          tz=tz
-        ))
+        return(
+          slot(
+            read.madavi(
+              path=this_file,
+              dropEmptyCols=FALSE,
+              tz=tz
+            ),
+            "data"
+          )[["madavi"]]
+        )
       }
     )
     file_data <- file_data_list[[1]]
@@ -75,5 +80,19 @@ read.madavi <- function(
   } else {}
   # convert UTC to local time
   file_data[["TimeLocal"]] <- as.POSIXct(format(file_data[["Time"]], tz="UTC", usetz=TRUE), tz=tz)
-  return(file_data)
+  
+  result <- airData(
+    data=list(
+      madavi=file_data
+    ),
+    layout=data.frame(
+      obj=rep("madavi", 4),
+      data=c("SDS_P1", "SDS_P2", "Humidity", "Temp"),
+      time=rep("TimeLocal", 4),
+      row.names=c("PM10", "PM2_5", "humidity", "temperature"),
+      stringsAsFactors=FALSE
+    )
+  )
+
+  return(result)
 }

@@ -13,5 +13,10 @@ Encoding: UTF-8
 LazyLoad: yes
 Authors@R: c(person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-1
-Date: 2020-01-06
+Date: 2020-01-09
 RoxygenNote: 7.0.2
+Collate: 
+    '01_class_01_airData.R'
+    '02_method_plot.airData.R'
+    'paRticulates-package.R'
+    'read.madavi.R'
