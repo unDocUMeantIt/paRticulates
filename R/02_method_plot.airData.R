@@ -30,6 +30,7 @@
 #' @param zlab A title for the upper z axis (temperature).
 #' @param legend Text for the plot legend describing humidity, temperature, PM10, and PM2.5.
 #' @param colors Four color definitions used to plot humidity, temperature, PM10, and PM2.5, respectively.
+#' @param ... Additional options applied to \code{plot} and \code{lines}.
 #' @export
 #' @keywords methods plot
 #' @docType methods
@@ -73,32 +74,8 @@ setMethod(
     ...
   ){
 
-    # create the data from the airData object
-    raw_data <- slot(x, "data")
-    if(length(raw_data) > 1){
-      stop(simpleError("Data from multiple files is not yet supported!"))
-    } else {
-      raw_data <- raw_data[[1]]
-      layout <- slot(x, "layout")
-      data <- data.frame(
-        time=raw_data[, unique(layout[["time"]])],
-        PM10=raw_data[, layout["PM10", "data"]],
-        PM2_5=raw_data[, layout["PM2_5", "data"]],
-        humidity=raw_data[, layout["humidity", "data"]],
-        temperature=raw_data[, layout["temperature", "data"]],
-        stringsAsFactors=FALSE
-      )
-    }
+    data <- layout_df(x, time=c(start, end))
 
-    if(is.character(start)){
-      start <- as.POSIXct(strptime(start, format="%Y-%m-%d %H:%M:%S"))
-    } else {}
-    if(is.character(end)){
-      end <- as.POSIXct(strptime(end, format="%Y-%m-%d %H:%M:%S"))
-    } else {}
-    if(all(inherits(start, "POSIXct"), inherits(end, "POSIXct"))){
-      data <- data[data[["time"]] >= start & data[["time"]] <= end, ]
-    } else {}
     par(
       mfrow=c(2,1),
       mar=c(0.8, 4.1, 4.1, 8.1),
@@ -113,7 +90,8 @@ setMethod(
       bty="n",
       main=main,
       xlab="",
-      ylab=ylab1
+      ylab=ylab1,
+      ...
     )
     axis_points_humid <- pretty(range(data[["humidity"]]))
     axis(
@@ -131,7 +109,8 @@ setMethod(
       axes=FALSE,
       bty="n",
       xlab="",
-      ylab=""
+      ylab="",
+      ...
     )
     axis_points_temp <- pretty(range(data[["temperature"]]))
     axis(
@@ -155,12 +134,14 @@ setMethod(
       sub=sub,
       xlab=xlab,
       ylab=ylab2,
-      cex.axis=0.8
+      cex.axis=0.8,
+      ...
     )
     lines(
       PM2_5 ~ time,
       data,
-      col=colors[4]
+      col=colors[4],
+      ...
     )
     legend(
       "topright",
