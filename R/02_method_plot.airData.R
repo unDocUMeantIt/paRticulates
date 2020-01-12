@@ -21,8 +21,8 @@
 #' 
 #' @param x An object of class \code{airData}, like returned by read.madavi().
 #' @param main Title of the plot.
-#' @param start Start time in POSIXct format, or as a character string in "\%Y-\%m-\%d \%H:\%M:\%S" format. If missing all data is plotted.
-#' @param end End time in POSIXct format, or as a character string in "\%Y-\%m-\%d \%H:\%M:\%S" format. If missing all data is plotted.
+#' @param start Start time in POSIXct format, or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.
+#' @param end End time in POSIXct format, or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.
 #' @param sub Subtitle
 #' @param xlab A title for the x axis (time).
 #' @param ylab1 A title for the upper y axis (humidity).
@@ -63,7 +63,6 @@ setMethod(
     main="Particulates",
     start=NA,
     end=NA,
-#     sub=paste0("Date: ", unique(format(data[["TimeLocal"]], "%d.%m.%Y"))),
     sub=paste0("Date: "),
     xlab="Time of day",
     ylab1="Humidity",

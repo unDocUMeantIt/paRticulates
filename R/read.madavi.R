@@ -65,12 +65,13 @@ read.madavi <- function(
       dec='.',
       row.names=NULL,
       colClasses = c(
-        "POSIXct",
+        "character",
         rep("numeric", 23)
       ),
       strip.white = TRUE,
       stringsAsFactors=FALSE
     )
+    file_data[["Time"]] <- as.POSIXct(file_data[["Time"]], tz="UTC")
   } else {
     stop(simpleError(paste0("Data can't be found:\n  ", path)))
   }
@@ -79,7 +80,7 @@ read.madavi <- function(
     file_data <- file_data[, !no_data]
   } else {}
   # convert UTC to local time
-  file_data[["TimeLocal"]] <- as.POSIXct(format(file_data[["Time"]], tz="UTC", usetz=TRUE), tz=tz)
+  file_data[["TimeLocal"]] <- as.POSIXct(format(file_data[["Time"]], tz=tz, usetz=TRUE), tz=tz)
   
   result <- airData(
     data=list(

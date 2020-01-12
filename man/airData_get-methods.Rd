@@ -66,6 +66,9 @@ layout_df(x, time = c(), ...)
 
 \item{value}{The new value to replace the current with.}
 
+\item{time}{An optional vector with two elements, start and end time, either in character
+format supported by \code{\link[as.POSIXct]{as.POSIXct}}, or in POSIXct format.}
+
 \item{i}{Defines the row selector (\code{[}) or the name to match (\code{[[}).}
 
 \item{j}{Defines the column selector.}

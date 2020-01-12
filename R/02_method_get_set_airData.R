@@ -27,6 +27,9 @@
 #' @param value The new value to replace the current with.
 #' @param i Defines the row selector (\code{[}) or the name to match (\code{[[}).
 #' @param j Defines the column selector.
+#' @param time An optional vector with two elements, start and end time, either in character
+#'    format supported by \code{\link[as.POSIXct]{as.POSIXct}}, or in POSIXct format.
+# @param tz A valid timezone as used by \code{\link[as.POSIXct]{as.POSIXct}}.
 #' @param ... Additional arguments for the generics.
 #' @rdname airData_get-methods
 #' @docType methods
@@ -145,11 +148,11 @@ setMethod("layout_df",
     
     result <- as.data.frame(result, stringsAsFactors=FALSE)
     if(isTRUE(length(time) == 2)){
-      time <- sapply(
+      time_POSIX <- lapply(
         time,
         function(this_time){
           if(is.character(this_time)){
-            return(as.POSIXct(strptime(this_time, format="%Y-%m-%d %H:%M:%S")))
+            return(as.POSIXct(this_time))
           } else if(inherits(this_time, "POSIXct")){
             return(this_time)
           } else {
@@ -157,7 +160,7 @@ setMethod("layout_df",
           }
         }
       )
-      result <- result[result[["time"]] >= time[1] & result[["time"]] <= time[2], ]
+      result <- result[result[["time"]] >= time_POSIX[[1]] & result[["time"]] <= time_POSIX[[2]], ]
     } else {}
     return(result)
   }

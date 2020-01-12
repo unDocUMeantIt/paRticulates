@@ -26,13 +26,15 @@ plot(x, y, ...)
 \arguments{
 \item{x}{An object of class \code{airData}, like returned by read.madavi().}
 
+\item{...}{Additional options applied to \code{plot} and \code{lines}.}
+
 \item{main}{Title of the plot.}
 
 \item{start}{Start time in POSIXct format,
-      or as a character string in "\%Y-\%m-\%d \%H:\%M:\%S" format. If missing all data is plotted.}
+      or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.}
 
 \item{end}{End time in POSIXct format,
-      or as a character string in "\%Y-\%m-\%d \%H:\%M:\%S" format. If missing all data is plotted.}
+      or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.}
 
 \item{sub}{Subtitle}
 
