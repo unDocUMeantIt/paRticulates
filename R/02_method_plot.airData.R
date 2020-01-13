@@ -28,8 +28,8 @@
 #' @param ylab1 A title for the upper y axis (humidity).
 #' @param ylab2 A title for the lower y axis (fine dust).
 #' @param zlab A title for the upper z axis (temperature).
-#' @param legend Text for the plot legend describing humidity, temperature, PM10, and PM2.5.
-#' @param colors Four color definitions used to plot humidity, temperature, PM10, and PM2.5, respectively.
+#' @param legend Text for the plot legend describing humidity, temperature, PM10, PM2.5, humidity over 70\%, and particle concentration below 50 µg/m³.
+#' @param colors Six color definitions used to plot humidity, temperature, PM10, PM2.5, humidity over 70\%, and particle concentration below 50 µg/m³, respectively.
 #' @param ... Additional options applied to \code{plot} and \code{lines}.
 #' @export
 #' @keywords methods plot
@@ -68,8 +68,8 @@ setMethod(
     ylab1="Humidity",
     ylab2="Particulates (µg/m³)",
     zlab="Temperature",
-    legend=c("Humid", "Temp", "PM10","PM2.5"),
-    colors=c("blue", "red", "darkgreen", "green"),
+    legend=c("Humid", "Temp", "PM10","PM2.5", "Humid > 70%", "< 50 µg/m³"),
+    colors=c("blue", "red", "darkgreen", "purple", "#FFDDDD", "#DDFFDD"),
     ...
   ){
 
@@ -90,6 +90,7 @@ setMethod(
       main=main,
       xlab="",
       ylab=ylab1,
+      lty="blank",
       ...
     )
     axis_points_humid <- pretty(range(data[["humidity"]]))
@@ -98,6 +99,22 @@ setMethod(
       at=axis_points_humid,
       labels=paste0(axis_points_humid, "%"),
       cex.axis=0.8
+    )
+    if(max(axis_points_humid) > 70){
+      rect(
+        xleft=data[1,"time"],
+        ybottom=70,
+        xright=data[nrow(data),"time"],
+        ytop=max(axis_points_humid),
+        col=colors[5],
+        border=NA
+      )
+    } else {}
+    lines(
+      humidity ~ time,
+      data,
+      col=colors[1],
+      ...
     )
     par(new = TRUE)
     plot(
@@ -126,7 +143,7 @@ setMethod(
     plot(
       PM10 ~ time,
       data,
-      ylim=range(data[["PM10"]], data[["PM2_5"]], na.rm=TRUE),
+      ylim=range(0, data[["PM10"]], data[["PM2_5"]], na.rm=TRUE),
       type="l",
       bty="n",
       col=colors[3],
@@ -134,6 +151,21 @@ setMethod(
       xlab=xlab,
       ylab=ylab2,
       cex.axis=0.8,
+      lty="blank", # don't draw yet, get rectangle with threshold first
+      ...
+    )
+    rect(
+      xleft=data[1,"time"],
+      ybottom=0,
+      xright=data[nrow(data),"time"],
+      ytop=50,
+      col=colors[6],
+      border=NA
+    )
+    lines(
+      PM10 ~ time,
+      data,
+      col=colors[3],
       ...
     )
     lines(
@@ -144,9 +176,9 @@ setMethod(
     )
     legend(
       "topright",
-      col=colors,
+      fill=colors,
+      border=NA,
       inset=c(-0.17, 0.3),
-      lty=1,
       legend=legend,
       bty="n"
     )

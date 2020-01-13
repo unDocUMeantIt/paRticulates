@@ -18,8 +18,8 @@ plot(x, y, ...)
   ylab1 = "Humidity",
   ylab2 = "Particulates (µg/m³)",
   zlab = "Temperature",
-  legend = c("Humid", "Temp", "PM10", "PM2.5"),
-  colors = c("blue", "red", "darkgreen", "green"),
+  legend = c("Humid", "Temp", "PM10", "PM2.5", "Humid > 70\%", "< 50 µg/m³"),
+  colors = c("blue", "red", "darkgreen", "purple", "#FFDDDD", "#DDFFDD"),
   ...
 )
 }
@@ -46,10 +46,11 @@ plot(x, y, ...)
 
 \item{zlab}{A title for the upper z axis (temperature).}
 
-\item{legend}{Text for the plot legend describing humidity, temperature, PM10, and PM2.5.}
+\item{legend}{Text for the plot legend describing humidity, temperature, PM10, PM2.5,
+      humidity over 70\%, and particle concentration below 50 µg/m³.}
 
-\item{colors}{Four color definitions used to plot humidity, temperature, PM10, and PM2.5,
-      respectively.}
+\item{colors}{Six color definitions used to plot humidity, temperature, PM10, PM2.5,
+      humidity over 70\%, and particle concentration below 50 µg/m³, respectively.}
 }
 \description{
 Plots objects of class \code{airData}.
