@@ -2,18 +2,25 @@
 % Please edit documentation in R/CAQI_sub.R
 \name{CAQI_sub}
 \alias{CAQI_sub}
-\title{Calcualte particulate matter sub-index of th EU Common Air Quality Index (CAQI)}
+\title{Calcualte particulate matter sub-index of the European Common Air Quality Index (CAQI)}
 \usage{
-CAQI_sub(x, norm = "PM10")
+CAQI_sub(x, norm = "PM10", raw = FALSE)
 }
 \arguments{
-\item{x}{A numeric vector of particular matter measurements (µg/m³).}
+\item{x}{A numeric vector of particulate matter measurements (µg/m³).}
 
 \item{norm}{One value of either "PM10" or "PM2.5",
       setting the PM size of the given values of \code{x}.}
+
+\item{raw}{Logical, if true returns only the CAQI raw values.}
 }
 \value{
-A named numeric vector.
+If \code{raw=TRUE}, a numeric vector with the raw CAQI values. Otherwise a data frame with
+   four columns: raw input data, CAQI value, CAQI level (factor),
+      recommended color code (factor).
+   The column names start with "raw_", "CAQI_", "level_", and "color_",
+      and end with either "PM10" or
+   "PM2_5", depending on the value of \code{norm}.
 }
 \description{
 The function returns the respective hourly CAQI grading.
