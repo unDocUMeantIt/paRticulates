@@ -15,7 +15,7 @@ EAQI_sub(x, norm = "PM10")
 \value{
 If \code{raw=TRUE}, a numeric vector with the raw EAQI values. Otherwise a data frame with
    four columns: raw input data, EAQI level (factor), recommended color code (factor).
-   The column names start with "raw_", "EAQI_", and "color_",
+   The column names start with "raw_", "EAQI_level_", and "EAQI_color_",
       and end with either "PM10" or
    "PM2_5", depending on the value of \code{norm}.
 }

@@ -60,7 +60,7 @@ layout_df(x, time = c(), ...)
 \S4method{[[}{airData}(x, i, time = c()) <- value
 }
 \arguments{
-\item{x}{An object of class \code{airData}.}
+\item{x}{An object of class \code{\link[paRticulates:airData-class]{airData}}.}
 
 \item{...}{Additional arguments for the generics.}
 

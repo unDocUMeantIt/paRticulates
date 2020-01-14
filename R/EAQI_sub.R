@@ -27,7 +27,7 @@
 #' @param norm One value of either "PM10" or "PM2.5", setting the PM size of the given values of \code{x}.
 #' @return If \code{raw=TRUE}, a numeric vector with the raw EAQI values. Otherwise a data frame with
 #'    four columns: raw input data, EAQI level (factor), recommended color code (factor).
-#'    The column names start with "raw_", "EAQI_", and "color_", and end with either "PM10" or
+#'    The column names start with "raw_", "EAQI_level_", and "EAQI_color_", and end with either "PM10" or
 #'    "PM2_5", depending on the value of \code{norm}.
 #' @export
 #' @examples
@@ -93,7 +93,7 @@ EAQI_sub <- function(
   result <- data.frame(
     raw=x,
     EAQI_level=factor(index_level, levels=names(col_EAQI)),
-    color=factor(col_EAQI[index_level], levels=col_EAQI)
+    EAQI_color=factor(col_EAQI[index_level], levels=col_EAQI)
   )
   colnames(result) <- paste0(colnames(result), "_", gsub("\\.", "_", norm))
 

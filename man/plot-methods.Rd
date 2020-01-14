@@ -24,7 +24,8 @@ plot(x, y, ...)
 )
 }
 \arguments{
-\item{x}{An object of class \code{airData}, like returned by read.madavi().}
+\item{x}{An object of class \code{\link[paRticulates:airData-class]{airData}},
+      like returned by read.madavi().}
 
 \item{...}{Additional options applied to \code{plot} and \code{lines}.}
 
@@ -53,7 +54,7 @@ plot(x, y, ...)
       humidity over 70\%, and particle concentration below 50 µg/m³, respectively.}
 }
 \description{
-Plots objects of class \code{airData}.
+Plots objects of class \code{\link[paRticulates:airData-class]{airData}}.
 }
 \examples{
 \dontrun{

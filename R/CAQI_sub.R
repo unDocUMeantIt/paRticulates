@@ -27,7 +27,7 @@
 #' @param raw Logical, if true returns only the CAQI raw values.
 #' @return If \code{raw=TRUE}, a numeric vector with the raw CAQI values. Otherwise a data frame with
 #'    four columns: raw input data, CAQI value, CAQI level (factor), recommended color code (factor).
-#'    The column names start with "raw_", "CAQI_", "level_", and "color_", and end with either "PM10" or
+#'    The column names start with "raw_", "CAQI_", "CAQI_level_", and "CAQI_color_", and end with either "PM10" or
 #'    "PM2_5", depending on the value of \code{norm}.
 #' @export
 #' @examples
@@ -107,8 +107,8 @@ CAQI_sub <- function(
     result <- data.frame(
       raw=x,
       CAQI=index_raw,
-      level=factor(index_label, levels=names(norm_CAQI)),
-      color=factor(col_CAQI[index_label], levels=col_CAQI)
+      CAQI_level=factor(index_label, levels=names(norm_CAQI)),
+      CAQI_color=factor(col_CAQI[index_label], levels=col_CAQI)
     )
     colnames(result) <- paste0(colnames(result), "_", gsub("\\.", "_", norm))
     return(result)

@@ -23,7 +23,7 @@
 #'   \item{\code{layout_df()} }{Returns a single data frame as described by the \code{layout} slot.}
 #'   \item{\code{[}/\code{[[} }{Can be used as a shortcut to directly access the data as described by the \code{layout} slot.}
 #' }
-#' @param x An object of class \code{airData}.
+#' @param x An object of class \code{\link[paRticulates:airData-class]{airData}}.
 #' @param value The new value to replace the current with.
 #' @param i Defines the row selector (\code{[}) or the name to match (\code{[[}).
 #' @param j Defines the column selector.

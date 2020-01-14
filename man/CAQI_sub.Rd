@@ -18,7 +18,7 @@ CAQI_sub(x, norm = "PM10", raw = FALSE)
 If \code{raw=TRUE}, a numeric vector with the raw CAQI values. Otherwise a data frame with
    four columns: raw input data, CAQI value, CAQI level (factor),
       recommended color code (factor).
-   The column names start with "raw_", "CAQI_", "level_", and "color_",
+   The column names start with "raw_", "CAQI_", "CAQI_level_", and "CAQI_color_",
       and end with either "PM10" or
    "PM2_5", depending on the value of \code{norm}.
 }

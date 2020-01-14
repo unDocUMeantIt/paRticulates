@@ -17,9 +17,9 @@
 
 #' Plot air quality data from an \code{airData} object
 #' 
-#' Plots objects of class \code{airData}.
+#' Plots objects of class \code{\link[paRticulates:airData-class]{airData}}.
 #' 
-#' @param x An object of class \code{airData}, like returned by read.madavi().
+#' @param x An object of class \code{\link[paRticulates:airData-class]{airData}}, like returned by read.madavi().
 #' @param main Title of the plot.
 #' @param start Start time in POSIXct format, or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.
 #' @param end End time in POSIXct format, or as a character string supported by \code{\link[as.POSIXct]{as.POSIXct}}. If missing all data is plotted.
