@@ -14,6 +14,9 @@ read.madavi(path, dropEmptyCols = TRUE, tz = "Europe/Berlin")
 
 \item{tz}{Time zone, used to calculate local time from the UTC raw data.}
 }
+\value{
+An object of class \code{\link[paRticulates:airData-class]{airData}}.
+}
 \description{
 Import CSV data as provided by madavi.de
 }

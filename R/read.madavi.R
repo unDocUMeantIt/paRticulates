@@ -20,6 +20,7 @@
 #' @param path Either a path to a single CSV file, or to a directory which is then being scanned for CSV files.
 #' @param dropEmptyCols Logical, whether to drop all columns without any data.
 #' @param tz Time zone, used to calculate local time from the UTC raw data.
+#' @return An object of class \code{\link[paRticulates:airData-class]{airData}}.
 #' @export
 #' @examples
 #' \dontrun{
