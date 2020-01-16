@@ -4,13 +4,17 @@
 \alias{EAQI_sub}
 \title{Calcualte particulate matter sub-index of the European Air Quality Index (EAQI)}
 \usage{
-EAQI_sub(x, norm = "PM10")
+EAQI_sub(x, norm = "PM10", latex_cellcolors = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector of particulate matter measurements (µg/m³).}
 
 \item{norm}{One value of either "PM10" or "PM2.5",
       setting the PM size of the given values of \code{x}.}
+
+\item{latex_cellcolors}{Logical,
+      if true the "EAQI_color_*" columns will show LaTeX \code{\\cellcolor} code instead
+of HTML colors in a \code{<span>}. See \code{Colors} section.}
 }
 \value{
 If \code{raw=TRUE}, a numeric vector with the raw EAQI values. Otherwise a data frame with
@@ -28,6 +32,28 @@ The index has six levels, named "good" (best air quality), "fair", "moderate", "
 and "extremely poor" (worst air quality).
 Thresholds are different between PM10 and PM2.5 particles.
 }
+\section{Colors}{
+ The data frame contains rows to support coloring tables or plots,
+      e.g. if you use the data in
+   an RMarkdown document. If \code{latex_cellcolors=FALSE},
+      they provide a \code{<span>} with hexadecimal HTML color codes
+   for each index value. Otherwise,
+      the factor labels are in LaTeX format using the \code{\\cellcolor} command.
+   This is useful, e.g.,
+      if combined with the \code{kableExtra::kable} function. To use the code out of the box,
+   define the following colors in your preamble (example shows usage in a YAML header):
+   
+\preformatted{
+header-includes:
+   - \definecolor{EAQIep}{HTML}{7D2181}
+   - \definecolor{EAQIvp}{HTML}{960032}
+   - \definecolor{EAQIp}{HTML}{FF5050}
+   - \definecolor{EAQIm}{HTML}{F0E641}
+   - \definecolor{EAQIf}{HTML}{50CCAA}
+   - \definecolor{EAQIg}{HTML}{50F0E6}
+}
+}
+
 \examples{
 EAQI_sub(55)
 }

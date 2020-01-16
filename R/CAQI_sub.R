@@ -22,9 +22,26 @@
 #' The index has five levels, named "very low" (best air quality), "low", "medium", "high", and "very high" (worst air quality).
 #' Thresholds are different between PM10 and PM2.5 particles.
 #' 
+#' @section Colors: The data frame contains rows to support coloring tables or plots, e.g. if you use the data in
+#'    an RMarkdown document. If \code{latex_cellcolors=FALSE}, they provide a \code{<span>} with hexadecimal HTML color codes
+#'    for each index value. Otherwise, the factor labels are in LaTeX format using the \code{\\cellcolor} command.
+#'    This is useful, e.g., if combined with the \code{kableExtra::kable} function. To use the code out of the box,
+#'    define the following colors in your preamble (example shows usage in a YAML header):
+#'    
+#' \preformatted{
+#' header-includes:
+#'    - \definecolor{CAQIvh}{HTML}{960018}
+#'    - \definecolor{CAQIh}{HTML}{F29305}
+#'    - \definecolor{CAQIm}{HTML}{EEC20B}
+#'    - \definecolor{CAQIl}{HTML}{BBCF4C}
+#'    - \definecolor{CAQIvl}{HTML}{79BC6A}
+#' }
+#' 
 #' @param x A numeric vector of particulate matter measurements (µg/m³).
 #' @param norm One value of either "PM10" or "PM2.5", setting the PM size of the given values of \code{x}.
 #' @param raw Logical, if true returns only the CAQI raw values.
+#' @param latex_cellcolors Logical, if true the "CAQI_color_*" columns will show LaTeX \code{\\cellcolor} code instead
+#'    of HTML colors. See \code{Colors} section.
 #' @return If \code{raw=TRUE}, a numeric vector with the raw CAQI values. Otherwise a data frame with
 #'    four columns: raw input data, CAQI value, CAQI level (factor), recommended color code (factor).
 #'    The column names start with "raw_", "CAQI_", "CAQI_level_", and "CAQI_color_", and end with either "PM10" or
@@ -36,7 +53,8 @@
 CAQI_sub <- function(
   x,
   norm="PM10",
-  raw=FALSE
+  raw=FALSE,
+  latex_cellcolors=TRUE
 ){
   index_raw <- switch(norm,
     "PM10"={
@@ -91,12 +109,19 @@ CAQI_sub <- function(
       "low"=25,
       "very low"=0
     )
-    col_CAQI <- c(
-      "very high"="#960018",
-      "high"="#f29305",
-      "medium"="#eec20b",
-      "low"="#bbcf4c",
-      "very low"="#79bc6a"
+    col_HTML_CAQI <- c(
+      "very high"="<div style=\"     background-color: #960018 !important; color: #ffffff !important;\" >&nbsp;very high&nbsp;</div>",
+      "high"="<div style=\"     background-color: #f29305 !important;\" >&nbsp;high&nbsp;</div>",
+      "medium"="<div style=\"     background-color: #eec20b !important;\" >&nbsp;medium&nbsp;</div>",
+      "low"="<div style=\"     background-color: #bbcf4c !important;\" >&nbsp;low&nbsp;</div>",
+      "very low"="<div style=\"     background-color: #79bc6a !important;\" >&nbsp;very low&nbsp;</div>"
+    )
+    col_LaTeX_CAQI <- c(
+      "very high"="\\cellcolor{CAQIvh}\\textcolor{white}{very high}",
+      "high"="\\cellcolor{CAQIh}high",
+      "medium"="\\cellcolor{CAQIm}medium",
+      "low"="\\cellcolor{CAQIl}low",
+      "very low"="\\cellcolor{CAQIvl}very low"
     )
     index_label <- sapply(
       index_raw,
@@ -104,12 +129,18 @@ CAQI_sub <- function(
         names(norm_CAQI)[min(which(x > norm_CAQI))]
       }
     )
+    if(isTRUE(latex_cellcolors)){
+      col_factor <- factor(col_LaTeX_CAQI[index_label], levels=col_LaTeX_CAQI)
+    } else {
+      col_factor <- factor(col_HTML_CAQI[index_label], levels=col_HTML_CAQI)
+    }
     result <- data.frame(
       raw=x,
       CAQI=index_raw,
       CAQI_level=factor(index_label, levels=names(norm_CAQI)),
-      CAQI_color=factor(col_CAQI[index_label], levels=col_CAQI)
+      CAQI_color=col_factor
     )
+    rownames(result) <- NULL
     colnames(result) <- paste0(colnames(result), "_", gsub("\\.", "_", norm))
     return(result)
   }

@@ -23,8 +23,26 @@
 #' and "extremely poor" (worst air quality).
 #' Thresholds are different between PM10 and PM2.5 particles.
 #' 
+#' @section Colors: The data frame contains rows to support coloring tables or plots, e.g. if you use the data in
+#'    an RMarkdown document. If \code{latex_cellcolors=FALSE}, they provide a \code{<span>} with hexadecimal HTML color codes
+#'    for each index value. Otherwise, the factor labels are in LaTeX format using the \code{\\cellcolor} command.
+#'    This is useful, e.g., if combined with the \code{kableExtra::kable} function. To use the code out of the box,
+#'    define the following colors in your preamble (example shows usage in a YAML header):
+#'    
+#' \preformatted{
+#' header-includes:
+#'    - \definecolor{EAQIep}{HTML}{7D2181}
+#'    - \definecolor{EAQIvp}{HTML}{960032}
+#'    - \definecolor{EAQIp}{HTML}{FF5050}
+#'    - \definecolor{EAQIm}{HTML}{F0E641}
+#'    - \definecolor{EAQIf}{HTML}{50CCAA}
+#'    - \definecolor{EAQIg}{HTML}{50F0E6}
+#' }
+#'
 #' @param x A numeric vector of particulate matter measurements (µg/m³).
 #' @param norm One value of either "PM10" or "PM2.5", setting the PM size of the given values of \code{x}.
+#' @param latex_cellcolors Logical, if true the "EAQI_color_*" columns will show LaTeX \code{\\cellcolor} code instead
+#'    of HTML colors in a \code{<span>}. See \code{Colors} section.
 #' @return If \code{raw=TRUE}, a numeric vector with the raw EAQI values. Otherwise a data frame with
 #'    four columns: raw input data, EAQI level (factor), recommended color code (factor).
 #'    The column names start with "raw_", "EAQI_level_", and "EAQI_color_", and end with either "PM10" or
@@ -35,9 +53,10 @@
 
 EAQI_sub <- function(
   x,
-  norm="PM10"
+  norm="PM10",
+  latex_cellcolors=TRUE
 ){
-  index_level <- switch(norm,
+  index_label <- switch(norm,
     "PM10"={
         sapply(
           x,
@@ -81,19 +100,32 @@ EAQI_sub <- function(
       stop(simpleError("'norm' must be either \"PM10\" or \"PM2.5\"!"))
   )
 
-  col_EAQI <- c(
-    "extremely poor"="#7d2181",
-    "very poor"="#960032",
-    "poor"="#ff5050",
-    "moderate"="#f0e641",
-    "fair"="#50ccaa",
-    "good"="#50f0e6"
+  col_HTML_EAQI <- c(
+    "extremely poor"="<div style=\"     background-color: #7d2181 !important; color: #ffffff !important;\" >&nbsp;extremely poor&nbsp;</div>",
+    "very poor"="<div style=\"     background-color: #960032 !important; color: #ffffff !important;\" >&nbsp;very poor&nbsp;</div>",
+    "poor"="<div style=\"     background-color: #ff5050 !important;\" >&nbsp;poor&nbsp;</div>",
+    "moderate"="<div style=\"     background-color: #f0e641 !important;\" >&nbsp;moderate&nbsp;</div>",
+    "fair"="<div style=\"     background-color: #50ccaa !important;\" >&nbsp;fair&nbsp;</div>",
+    "good"="<div style=\"     background-color: #50f0e6 !important;\" >&nbsp;good&nbsp;</div>"
   )
+  col_LaTeX_EAQI <- c(
+    "extremely poor"="\\cellcolor{EAQIep}\\textcolor{white}{extremely poor}",
+    "very poor"="\\cellcolor{EAQIvp}\\textcolor{white}{very poor}",
+    "poor"="\\cellcolor{EAQIp}poor",
+    "moderate"="\\cellcolor{EAQIm}moderate",
+    "fair"="\\cellcolor{EAQIf}fair",
+    "good"="\\cellcolor{EAQIg}good"
+  )
+  if(isTRUE(latex_cellcolors)){
+    col_factor <- factor(col_LaTeX_EAQI[index_label], levels=col_LaTeX_EAQI)
+  } else {
+    col_factor <- factor(col_HTML_EAQI[index_label], levels=col_HTML_EAQI)
+  }
 
   result <- data.frame(
     raw=x,
-    EAQI_level=factor(index_level, levels=names(col_EAQI)),
-    EAQI_color=factor(col_EAQI[index_level], levels=col_EAQI)
+    EAQI_level=factor(index_label, levels=names(col_HTML_EAQI)),
+    EAQI_color=col_factor
   )
   colnames(result) <- paste0(colnames(result), "_", gsub("\\.", "_", norm))
 

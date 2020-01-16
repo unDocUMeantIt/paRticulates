@@ -9,7 +9,8 @@
 \usage{
 aq_hourly(x, time = c(), ...)
 
-\S4method{aq_hourly}{airData}(x, time = c(), calc = c("CAQI", "EAQI"))
+\S4method{aq_hourly}{airData}(x, time = c(), calc = c("CAQI", "EAQI"),
+      latex_cellcolors = TRUE)
 }
 \arguments{
 \item{x}{An object of class \code{\link[paRticulates:airData-class]{airData}}.}
@@ -19,6 +20,10 @@ format supported by \code{\link[as.POSIXct]{as.POSIXct}}, or in POSIXct format.}
 
 \item{calc}{Character vector of air quality indices to calculate.
 Currently, "CAQI" and "EAQI" are supported.}
+
+\item{latex_cellcolors}{Logical,
+      if true the "*_color_*" columns will show LaTeX \code{\\cellcolor} code instead
+of HTML colors. See \code{Colors} section.}
 }
 \value{
 A data frame as returned by \code{\link[paRticulates:layout_df]{layout_df}},
@@ -28,3 +33,30 @@ A data frame as returned by \code{\link[paRticulates:layout_df]{layout_df}},
 The hour value is to be interpreted as the starting point of measurement until the next full hour.
 this means, if you are looking for the past hour, you need to add 1 to the hour values.
 }
+\section{Colors}{
+ The data frame contains rows to support coloring tables or plots,
+      e.g. if you use the data in
+   an RMarkdown document. If \code{latex_cellcolors=FALSE},
+      they simply provide hexadecimal HTML color codes
+   for each index value. Otherwise,
+      the factor labels are in LaTeX format using the \code{\\cellcolor} command.
+   This is useful, e.g.,
+      if combined with the \code{kableExtra::kable} function. To use the code out of the box,
+   define the following colors in your preamble (example shows usage in a YAML header):
+   
+\preformatted{
+header-includes:
+   - \definecolor{CAQIvh}{HTML}{960018}
+   - \definecolor{CAQIh}{HTML}{F29305}
+   - \definecolor{CAQIm}{HTML}{EEC20B}
+   - \definecolor{CAQIl}{HTML}{BBCF4C}
+   - \definecolor{CAQIvl}{HTML}{79BC6A}
+   - \definecolor{EAQIep}{HTML}{7D2181}
+   - \definecolor{EAQIvp}{HTML}{960032}
+   - \definecolor{EAQIp}{HTML}{FF5050}
+   - \definecolor{EAQIm}{HTML}{F0E641}
+   - \definecolor{EAQIf}{HTML}{50CCAA}
+   - \definecolor{EAQIg}{HTML}{50F0E6}
+}
+}
+
