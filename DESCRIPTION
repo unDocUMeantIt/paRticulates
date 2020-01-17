@@ -13,13 +13,14 @@ Encoding: UTF-8
 LazyLoad: yes
 Authors@R: c(person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-1
-Date: 2020-01-16
+Date: 2020-01-17
 RoxygenNote: 7.0.2
 Collate: 
     '01_class_01_airData.R'
     '02_method_aq_hourly.R'
     '02_method_get_set_airData.R'
     '02_method_plot.airData.R'
+    'AQI_US_sub.R'
     'CAQI_sub.R'
     'EAQI_sub.R'
     'paRticulates-package.R'

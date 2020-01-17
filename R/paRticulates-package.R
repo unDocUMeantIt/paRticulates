@@ -5,7 +5,7 @@
 #' Package: \tab paRticulates\cr
 #' Type: \tab Package\cr
 #' Version: \tab 0.1-1\cr
-#' Date: \tab 2020-01-16\cr
+#' Date: \tab 2020-01-17\cr
 #' Depends: \tab R (>= 3.0.0)\cr
 #' Encoding: \tab UTF-8\cr
 #' License: \tab GPL (>= 3)\cr

@@ -2,6 +2,7 @@
 
 export("air_data<-")
 export("air_layout<-")
+export(AQI_US_sub)
 export(CAQI_sub)
 export(EAQI_sub)
 export(airData)
