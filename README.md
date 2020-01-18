@@ -1,7 +1,8 @@
 # paRticulates
 
-Import sensor data as provided by madavi.de, and plot the imported data. Early
-development, further features might possibly be added...
+Import sensor data on particulate matter as provided by madavi.de, and plot the imported data by time range.
+Calculate hourly means and several air quality indices (CITEAIR's [CAQI](https://www.airqualitynow.eu/about_indices_definition.php); EEA's [EAQI](https://www.eea.europa.eu/themes/air/air-quality-index); EPA's [AQI](https://airnow.gov/index.cfm?action=aqibasics.aqi) and NowCast).
+Early development, further features might possibly be added...
 
 More information on paRticulates is available on the [project homepage](https://reaktanz.de/?c=hacking&s=paRticulates).
 

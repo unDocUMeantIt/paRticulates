@@ -1,7 +1,8 @@
 Package: paRticulates
 Type: Package
 Title: Import and visualize fine dust sensor data
-Description: Import sensor data as provided by madavi.de, and plot the imported data. Early development, further features might possibly be added...
+Description: Import sensor data on particulate matter as provided by madavi.de, and plot the imported data by time range. Calculate hourly means and several air quality indices
+                    (CITEAIR's CAQI; EEA's EAQI; EPA's AQI and NowCast). Early development, further features might possibly be added...
 Author: Meik Michalke [aut, cre]
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
 Depends: R (>= 3.0.0)
@@ -13,15 +14,16 @@ Encoding: UTF-8
 LazyLoad: yes
 Authors@R: c(person(given="Meik", family="Michalke", email="meik.michalke@hhu.de", role=c("aut", "cre")))
 Version: 0.1-1
-Date: 2020-01-17
+Date: 2020-01-18
 RoxygenNote: 7.0.2
 Collate: 
     '01_class_01_airData.R'
     '02_method_aq_hourly.R'
     '02_method_get_set_airData.R'
     '02_method_plot.airData.R'
-    'AQI_US_sub.R'
-    'CAQI_sub.R'
-    'EAQI_sub.R'
+    'AQI_US_PM.R'
+    'CAQI_PM.R'
+    'EAQI_PM.R'
+    'NowCast_PM.R'
     'paRticulates-package.R'
     'read.madavi.R'

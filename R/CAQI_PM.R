@@ -17,7 +17,7 @@
 
 #' Calcualte particulate matter sub-index of the European Common Air Quality Index (CAQI)
 #'
-#' The function returns the respective hourly CAQI grading.
+#' The function returns the respective hourly CAQI grading, as defined by the Common Information to European Air (CITEAIR and CITEAIR II) projects[1].
 #' 
 #' The index has five levels, named "very low" (best air quality), "low", "medium", "high", and "very high" (worst air quality).
 #' Thresholds are different between PM10 and PM2.5 particles.
@@ -46,11 +46,15 @@
 #'    four columns: raw input data, CAQI value, CAQI level (factor), recommended color code (factor).
 #'    The column names start with "raw_", "CAQI_", "CAQI_level_", and "CAQI_color_", and end with either "PM10" or
 #'    "PM2_5", depending on the value of \code{norm}.
+#' @seealso
+#'    \code{\link[EAQI_PM]{EAQI_PM}}, \code{\link[AQI_US_PM]{AQI_US_PM}}
+#' @references
+#'    [1] \url{https://www.airqualitynow.eu/about_indices_definition.php}
 #' @export
 #' @examples
-#' CAQI_sub(55)
+#' CAQI_PM(55)
 
-CAQI_sub <- function(
+CAQI_PM <- function(
   x,
   norm="PM10",
   raw=FALSE,

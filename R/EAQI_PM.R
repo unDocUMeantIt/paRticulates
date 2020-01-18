@@ -17,7 +17,7 @@
 
 #' Calcualte particulate matter sub-index of the European Air Quality Index (EAQI)
 #'
-#' The function returns the respective hourly EAQI grading.
+#' The function returns the respective hourly EAQI grading, as defined by the European Environment Agency[1].
 #' 
 #' The index has six levels, named "good" (best air quality), "fair", "moderate", "poor", "very poor",
 #' and "extremely poor" (worst air quality).
@@ -47,11 +47,15 @@
 #'    four columns: raw input data, EAQI level (factor), recommended color code (factor).
 #'    The column names start with "raw_", "EAQI_level_", and "EAQI_color_", and end with either "PM10" or
 #'    "PM2_5", depending on the value of \code{norm}.
+#' @seealso
+#'    \code{\link[AQI_US_PM]{AQI_US_PM}}, \code{\link[CAQI_PM]{CAQI_PM}}
+#' @references
+#'    [1] \url{https://www.eea.europa.eu/themes/air/air-quality-index}
 #' @export
 #' @examples
-#' EAQI_sub(55)
+#' EAQI_PM(55)
 
-EAQI_sub <- function(
+EAQI_PM <- function(
   x,
   norm="PM10",
   latex_cellcolors=TRUE

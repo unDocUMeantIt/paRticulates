@@ -17,13 +17,13 @@
 
 #' Calcualte particulate matter sub-index of the US Air Quality Index (AQI)
 #'
-#' The function returns the 24-hour AQI grading for given PM raw values.
+#' The function returns the 24-hour AQI grading for given PM raw values, as defined by the United States Environmental Protection Agency (EPA)[1].
 #' 
 #' The index has six levels, named "good" (best air quality), "moderate", "unhealthy for sensitive groups", "unhealthy", "very unhealthy", and "hazardous" (worst air quality).
 #' Thresholds are different between PM10 and PM2.5 particles.
 #' 
-#' @note If there is no full 24-hours of data available, the AQI standard calculates a NowCast value from
-#' the last 12 hours. This is currently not implemented.
+#' @note If there is no full 24-hours of data available, the AQI standard calculates a \code{\link[NowCast_PM]{NowCast}} value from
+#' the last 12 hours. This is currently not implemented here, but available as a \code{\link[NowCast_PM]{separate function}}.
 #' 
 #' @section Colors: The data frame contains rows to support coloring tables or plots, e.g. if you use the data in
 #'    an RMarkdown document. If \code{latex_cellcolors=FALSE}, they provide a \code{<span>} with hexadecimal HTML color codes
@@ -50,11 +50,15 @@
 #'    four columns: raw input data, AQI_US value, AQI_US level (factor), recommended color code (factor).
 #'    The column names start with "raw_", "AQI_US_", "AQI_US_level_", and "AQI_US_color_", and end with either "PM10" or
 #'    "PM2_5", depending on the value of \code{norm}.
+#' @seealso
+#'    \code{\link[NowCast_PM]{NowCast_PM}}, \code{\link[EAQI_PM]{EAQI_PM}}, \code{\link[CAQI_PM]{CAQI_PM}}
+#' @references
+#'    [1] \url{https://airnow.gov/index.cfm?action=aqibasics.aqi}
 #' @export
 #' @examples
-#' AQI_US_sub(55)
+#' AQI_US_PM(55)
 
-AQI_US_sub <- function(
+AQI_US_PM <- function(
   x,
   norm="PM10",
   raw=FALSE,

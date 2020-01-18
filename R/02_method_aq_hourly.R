@@ -83,22 +83,22 @@ setMethod("aq_hourly",
 
     if("CAQI" %in% calc){
       if("PM10" %in% colnames(result)){
-        CAQI10 <- CAQI_sub(result[["PM10"]], norm="PM10", latex_cellcolors=latex_cellcolors)
+        CAQI10 <- CAQI_PM(result[["PM10"]], norm="PM10", latex_cellcolors=latex_cellcolors)
         result <- cbind(result, CAQI10[, !colnames(CAQI10) %in% "raw_PM10"])
       } else {}
       if("PM2_5" %in% colnames(result)){
-        CAQI2_5 <- CAQI_sub(result[["PM2_5"]], norm="PM2.5", latex_cellcolors=latex_cellcolors)
+        CAQI2_5 <- CAQI_PM(result[["PM2_5"]], norm="PM2.5", latex_cellcolors=latex_cellcolors)
         result <- cbind(result, CAQI2_5[, !colnames(CAQI2_5) %in% "raw_PM2_5"])
       } else {}
     } else {}
 
     if("EAQI" %in% calc){
       if("PM10" %in% colnames(result)){
-        EAQI10 <- EAQI_sub(result[["PM10"]], norm="PM10", latex_cellcolors=latex_cellcolors)
+        EAQI10 <- EAQI_PM(result[["PM10"]], norm="PM10", latex_cellcolors=latex_cellcolors)
         result <- cbind(result, EAQI10[, !colnames(EAQI10) %in% "raw_PM10"])
       } else {}
       if("PM2_5" %in% colnames(result)){
-        EAQI2_5 <- EAQI_sub(result[["PM2_5"]], norm="PM2.5", latex_cellcolors=latex_cellcolors)
+        EAQI2_5 <- EAQI_PM(result[["PM2_5"]], norm="PM2.5", latex_cellcolors=latex_cellcolors)
         result <- cbind(result, EAQI2_5[, !colnames(EAQI2_5) %in% "raw_PM2_5"])
       } else {}
     } else {}

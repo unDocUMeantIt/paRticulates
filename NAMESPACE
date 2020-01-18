@@ -2,9 +2,10 @@
 
 export("air_data<-")
 export("air_layout<-")
-export(AQI_US_sub)
-export(CAQI_sub)
-export(EAQI_sub)
+export(AQI_US_PM)
+export(CAQI_PM)
+export(EAQI_PM)
+export(NowCast_PM)
 export(airData)
 export(air_data)
 export(air_layout)
