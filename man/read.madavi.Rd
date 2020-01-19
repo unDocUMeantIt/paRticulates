@@ -4,13 +4,17 @@
 \alias{read.madavi}
 \title{Import CSV data as provided by madavi.de}
 \usage{
-read.madavi(path, dropEmptyCols = TRUE, tz = "Europe/Berlin")
+read.madavi(path, dropEmptyCols = TRUE, na.rm = TRUE, tz = "Europe/Berlin")
 }
 \arguments{
 \item{path}{Either a path to a single CSV file,
       or to a directory which is then being scanned for CSV files.}
 
 \item{dropEmptyCols}{Logical, whether to drop all columns without any data.}
+
+\item{na.rm}{Logical,
+      whether to drop any row with missing data in any of the core data columns,
+"PM10", "PM2_5", "humidity", or "temperature".}
 
 \item{tz}{Time zone, used to calculate local time from the UTC raw data.}
 }

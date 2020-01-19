@@ -30,11 +30,13 @@ If \code{raw=TRUE},
 }
 \description{
 The function returns the weighted mean of exctly 12 given PM raw values,
-      as defined by the United States Environmental Protection Agency (EPA)[1].
+      as defined by the United States Environmental Protection Agency (EPA)[1,2].
 }
 \examples{
 NowCast_PM(c(50, 80, 75, 90, 82, 53, 64, 74, 21, 10, 16, 13))
 }
 \references{
-[1] \url{https://en.wikipedia.org/wiki/NowCast_(air_quality_index)}
+[1] \url{https://www.epa.gov/airnow/faq/Nowcast-formula.pptx}
+
+   [2] \url{https://en.wikipedia.org/wiki/NowCast_(air_quality_index)}
 }

@@ -19,6 +19,8 @@
 #' 
 #' @param path Either a path to a single CSV file, or to a directory which is then being scanned for CSV files.
 #' @param dropEmptyCols Logical, whether to drop all columns without any data.
+#' @param na.rm Logical, whether to drop any row with missing data in any of the core data columns,
+#'    "PM10", "PM2_5", "humidity", or "temperature".
 #' @param tz Time zone, used to calculate local time from the UTC raw data.
 #' @return An object of class \code{\link[paRticulates:airData-class]{airData}}.
 #' @export
@@ -34,6 +36,7 @@
 read.madavi <- function(
   path,
   dropEmptyCols=TRUE,
+  na.rm=TRUE,
   tz="Europe/Berlin"
 ){
   if(file_test("-d", path)){
@@ -47,6 +50,7 @@ read.madavi <- function(
             read.madavi(
               path=this_file,
               dropEmptyCols=FALSE,
+              na.rm=FALSE,
               tz=tz
             ),
             "data"
@@ -80,16 +84,34 @@ read.madavi <- function(
     no_data <- apply(file_data, 2, function(this_col) all(is.na(this_col)))
     file_data <- file_data[, !no_data]
   } else {}
+
   # convert UTC to local time
   file_data[["TimeLocal"]] <- as.POSIXct(format(file_data[["Time"]], tz=tz, usetz=TRUE), tz=tz)
-  
+
+  madavi_data_cols <- c("SDS_P1", "SDS_P2", "Humidity", "Temp")
+  if(isTRUE(na.rm)){
+    missing_data <- apply(file_data[, madavi_data_cols], 1, function(this_row) any(is.na(this_row)))
+    if(sum(missing_data) > 0){
+      missing_row <- file_data[missing_data, "TimeLocal"]
+      file_data <- file_data[!missing_data, ]
+      warning(
+        paste0(
+          "A total of ",
+          sum(missing_data),
+          " rows have been dropped because of missing data:\n  ",
+          paste0(unique(format(missing_row, "%Y-%m-%d")), collapse="\n  ")),
+        call.=FALSE
+      )
+    } else {}
+  } else {}
+
   result <- airData(
     data=list(
       madavi=file_data
     ),
     layout=data.frame(
       obj=rep("madavi", 4),
-      data=c("SDS_P1", "SDS_P2", "Humidity", "Temp"),
+      data=madavi_data_cols,
       time=rep("TimeLocal", 4),
       row.names=c("PM10", "PM2_5", "humidity", "temperature"),
       stringsAsFactors=FALSE
